@@ -1,0 +1,255 @@
+* IPA dictionary CMU  
+
+** Download the dictionary 
+
+#+BEGIN_SRC 
+
+wget http://people.umass.edu/nconstan/CMU-IPA/CMU-in-IPA.zip
+
+#+END_SRC 
+
+   
+** Decompress the file
+
+#+BEGIN_SRC  
+
+unzip CMU-in-IPA.zip 
+
+#+END_SRC
+
+
+
+* Creating the  json file for the dictionary db 
+
+
+** Text formating
+
+#+BEGIN_SRC 
+
+// Add {" at the beginning of the line
+sed -i -e 's/^/{"/'  CMU.in.IPA.txt
+#+END_SRC
+
+#+BEGIN_SRC 
+// Replace commas with ":"
+sed -i -e 's/,/":"/'  CMU.in.IPA.txt
+#+END_SRC
+
+#+BEGIN_SRC 
+// Add "}, at the end of the line
+sed -i -e 's/$/"},/'  CMU.in.IPA.txt
+#+END_SRC
+
+
+#+BEGIN_SRC 
+// Delete spaces
+sed -i -e 's/[[:space:]]*//g' filename 
+#+END_SRC
+
+** Creating the json files
+
+#+BEGIN_SRC  javascript 
+const { execSync } = require("child_process");
+
+const alphabet = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z"
+];
+
+function a() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(
+      `cat CMU.in.IPA.txt | grep '^{"${alphabet[i]}' > ${alphabet[i]}.json`,
+      function(err, stdout, stderr) {
+        if (err) {
+          console.error(err);
+          process.exit(1);
+        } else {
+          process.exit(0);
+        }
+      }
+    );
+  }
+}
+
+function b() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(`sed -i -e 's/{"/{"word":"/' ${alphabet[i]}.json`, function(
+      err,
+      stdout,
+      stderr
+    ) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+}
+
+function c() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(`sed -i -e 's/":"/","ipa":"/2'  ${alphabet[i]}.json`, function(
+      err,
+      stdout,
+      stderr
+    ) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+}
+
+function d() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(`sed -i '1s/^/[/' ${alphabet[i]}.json`, function(
+      err,
+      stdout,
+      stderr
+    ) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+}
+
+function e() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(`sed -i -e '$s/,$//' ${alphabet[i]}.json`, function(
+      err,
+      stdout,
+      stderr
+    ) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+}
+
+function f() {
+  for (let i = 0; i < alphabet.length; i++) {
+    execSync(`sed -i -e '$a\]' ${alphabet[i]}.json`, function(
+      err,
+      stdout,
+      stderr
+    ) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+}
+
+a();
+b();
+c();
+d();
+e();
+f();
+console.log("done");
+
+#+END_SRC  
+
+* validating the json file 
+ 
+#+BEGIN_SRC 
+
+// install the tool for validation
+npm install  jsonlint -g 
+
+// validating 
+jsonlint --quiet filename.ext 
+
+#+END_SRC
+  
+
+* mongoimport 
+
+#+BEGIN_SRC  
+
+$ sudo apt-get install mongodb-org-tools
+
+#+END_SRC
+
+
+#+BEGIN_SRC 
+
+$ mongoimport -d dbName -c dict --type json --jsonArray --file ./path/to/file.extension --host ds123456.mlab.com --port 12345 -u username -p password 
+
+#+END_SRC
+
+
+#+BEGIN_COMMENT
+
+ --jsonArray flag take the array elements and create a document for each one.
+ 
+[ {},{},{},{} ] => 4 differents mongodb documents ( not 1 array ) 
+
+#+END_COMMENT
+
+
+* mongo 
+
+#+BEGIN_SRC 
+
+$ mongo ds123456.mlab.com:12345/dbName -u username -p password
+
+#+END_SRC
+
+
+#+BEGIN_SRC javascript
+
+db.find( { word: "a" }, { ipa: 1, _id: 0 } );
+
+#+END_SRC
+
+
+* DB 
+
+#+BEGIN_SRC javascript
+
+  { word: String }, { ipa: String,  _id: number } 
+
+#+END_SRC
+  
+
