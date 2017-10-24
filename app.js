@@ -20,7 +20,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// https://daveceddia.com/create-react-app-express-production/ oct-2017
+// serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/', routes );
 // app.use('/users', users);
