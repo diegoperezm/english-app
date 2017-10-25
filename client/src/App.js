@@ -23,7 +23,8 @@ class App extends Component {
             <textarea 
 	      cols="40" 
 	      rows="10" 
-              placeholder="write here"/>
+              placeholder="write here"
+              value='The quick brown fox jumps over the lazy dog'/>
             <p>Translated text</p> 
        </div>
     );
