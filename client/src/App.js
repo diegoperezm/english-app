@@ -24,6 +24,7 @@ class App extends Component {
 	      cols="40" 
 	      rows="10" 
               placeholder="write here"/>
+            <p>Translated text</p> 
        </div>
     );
   }
