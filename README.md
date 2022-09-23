@@ -53,7 +53,7 @@ Cada palabra seleccionada en la sección `Palabra-IPA`, es agregada a nuestro vo
 
 ![vocabulario-palabra](public/img/vocabulario-palabra.png)
 
-Podemos agregar multiples palabras a nuestro vocabulario, se ordenan de acuerdo an numero de veces que sean seleccionadas en la sección `Palabra-IPA`:
+Podemos agregar multiples palabras a nuestro vocabulario, se ordenan de acuerdo al número de veces que sean seleccionadas en la sección `Palabra-IPA`:
 
 ![vocabulario-palabras](public/img/vocabulario-palabras.png)
 
@@ -63,7 +63,6 @@ Podemos agregar multiples palabras a nuestro vocabulario, se ordenan de acuerdo 
 
 
 ```shell
-packagemanager deploy awesome-project -s server.com -u username -p password
 ```
 
 ## Licensing
