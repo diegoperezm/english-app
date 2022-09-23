@@ -1,0 +1,64 @@
+:root {
+  box-sizing: border-box; 
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit; 
+} 
+
+.word {
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    padding: 0.5em;
+    min-width:  50vh;
+    min-height: 4rem;
+}
+
+.ipaWord {
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    padding: 0.5em;
+    min-width: 50vh;
+    min-height: 4rem;
+}
+
+.texto {
+   font-size: 1.3rem;
+   text-align: justify;
+   overflow-y: scroll;
+   padding: 0.8rem;
+}
+
+.textoArea {
+   font-size: 1.2rem;
+}
+
+
+.active {
+    background-color: #FEF9A7; 
+    border: none;
+    border-radius: 5px;
+    color: ;
+    padding: 0.8em 1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+}
+
+.inactive {
+    background-color: #EEEEEE; 
+    border: none;
+    border-radius: 5px;
+    color: black;
+    padding: 0.8em 1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
